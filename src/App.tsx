@@ -1,33 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
 
+const URL = `https://valorant-api.com/v1/agents?isPlayableCharacter=true`
+
+interface Agent {
+  uuid: string
+  displayName: string
+  displayIcon: string
+}
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [agents, setAgents] = useState<Agent[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetch(URL)
+      result.json().then(json => {
+        console.log(json)
+        setAgents(json.data)
+      })
+    }
+    fetchData()
+  }, [])
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='p-20 font-poppins'>
+        <h1 className='text-4xl font-bold'>Agents</h1>
+        <div className="mt-5 flex flex-wrap gap-3">
+          {agents.map(agent => 
+            <div key={agent.uuid} className='rounded-md bg-slate-400 p-6'>
+              <img key={agent.displayIcon} src={agent.displayIcon} alt={agent.displayName} className='w-36 h-36'></img>
+              <h2 key={agent.displayName} className='text-xl'>{agent.displayName}</h2>
+            </div>
+          )}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
