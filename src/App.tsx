@@ -1,40 +1,17 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
+import Agent from './pages/Agent'
 import './App.css'
 
-const URL = `https://valorant-api.com/v1/agents?isPlayableCharacter=true`
-
-interface Agent {
-  uuid: string
-  displayName: string
-  displayIcon: string
-}
-
 function App() {
-  const [agents, setAgents] = useState<Agent[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetch(URL)
-      result.json().then(json => {
-        console.log(json)
-        setAgents(json.data)
-      })
-    }
-    fetchData()
-  }, [])
-
   return (
     <>
-      <div className='p-20 font-poppins'>
-        <h1 className='text-4xl font-bold'>Agents</h1>
-        <div className="mt-5 flex flex-wrap gap-3">
-          {agents.map(agent => 
-            <div key={agent.uuid} className='rounded-md bg-slate-400 p-6'>
-              <img key={agent.displayIcon} src={agent.displayIcon} alt={agent.displayName} className='w-36 h-36'></img>
-              <h2 key={agent.displayName} className='text-xl'>{agent.displayName}</h2>
-            </div>
-          )}
-        </div>
+      <div className='p-20'>
+        <nav className="flex space-x-4 text-white mb-10">
+          <a href="/agent" className="font-bold px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900">Agents</a>
+          <a href="/maps" className="font-bold px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900">Maps</a>
+          <a href="/weapons" className="font-bold px-3 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900">Weapons</a>
+        </nav>
+        <Agent></Agent>
       </div>
     </>
   )
