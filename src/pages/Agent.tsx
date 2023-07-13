@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import hover from '../assets/sounds/hover.mp3'
+import select from '../assets/sounds/select.mp3'
 
 const agentsURL = `https://valorant-api.com/v1/agents?isPlayableCharacter=true`
 
@@ -29,11 +31,16 @@ const Agent = () => {
     })
   }
 
+  const playSound = (sound: any) => {
+    new Audio(sound).play()
+  }
+
   useEffect(() => {
     fetchData(agentsURL, setAgents)
   }, [])
 
   const selectAgent = (UUID: string) => {
+    playSound(select)
     fetchData(`https://valorant-api.com/v1/agents/${UUID}?isPlayableCharacter=true`, setAgent)
   }
 
@@ -54,7 +61,7 @@ const Agent = () => {
       <div className="mt-5 flex flex-wrap gap-2">
         {agents.map(agent => 
           // <AgentButton key={agent.uuid} agent={agent}></AgentButton>
-          <button className='bg-white/30 hover:bg-white/60 border-solid border-2' type="button" key={agent.uuid} onClick={() => selectAgent(agent.uuid)}>
+          <button className='bg-white/30 hover:bg-white/60 border-solid border-2 focus:outline-none focus:ring-2 focus:border-yellow-400 focus:ring-yellow-400' type="button" key={agent.uuid} onMouseOver={() => playSound(hover)} onClick={() => selectAgent(agent.uuid)}>
             <img key={agent.displayIcon} src={agent.displayIcon} alt={agent.displayName} className='w-28 h-28'></img>
           </button>
           // <button key={agent.uuid} className='bg-white/30 hover:bg-white/60 border-solid border-2' type="button">
