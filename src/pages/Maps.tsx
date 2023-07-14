@@ -1,26 +1,10 @@
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
 
-const agentsURL = `https://valorant-api.com/v1/agents?isPlayableCharacter=true`
-
-interface Abilities {
-  slot: string
-  displayName: string
-  description: string
-  displayIcon: string
-}
-
-interface Agent {
-  uuid: string
-  displayName: string
-  displayIcon: string
-  description: string
-  abilities: Abilities[]
-  fullPortrait: string
-}
+// const agentsURL = `https://valorant-api.com/v1/agents?isPlayableCharacter=true`
 
 const Maps = () => {
-  const [agents, setAgents] = useState<Agent[]>([])
-  const [agent, setAgent] = useState<Agent>()
+  // const [agents, setAgents] = useState<Agent[]>([])
+  // const [agent, setAgent] = useState<Agent>()
   
   const fetchData = async (URL: string, callback: (data: any) => void) => {
     const result = await fetch(URL)
@@ -29,17 +13,18 @@ const Maps = () => {
     })
   }
 
-  useEffect(() => {
-    fetchData(agentsURL, setAgents)
-  }, [])
+  // useEffect(() => {
+  //   fetchData(agentsURL, setAgents)
+  // }, [])
 
-  const selectAgent = (UUID: string) => {
-    fetchData(`https://valorant-api.com/v1/agents/${UUID}?isPlayableCharacter=true`, setAgent)
-  }
+  // const selectAgent = (UUID: string) => {
+  //   fetchData(`https://valorant-api.com/v1/agents/${UUID}?isPlayableCharacter=true`, setAgent)
+  // }
 
   return ( 
     <div className='font-poppins text-white'>
-      <h1 className='text-4xl font-bold'>Maps</h1>
+      <h1 className='text-4xl font-bold mb-5'>Maps</h1>
+      <p>Working in Progress...</p>
     </div>
    );
 }
