@@ -1,0 +1,8 @@
+@font-face {
+  font-family: valorant;
+  src: url(../assets/fonts/Valorant_Font.ttf);
+}
+
+.valorant {
+  font-family: valorant;
+}
